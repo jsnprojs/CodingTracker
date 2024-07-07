@@ -1,4 +1,6 @@
-﻿namespace CodingTracker;
+﻿using System.Configuration;
+
+namespace CodingTracker;
 
 internal class Program
 {
