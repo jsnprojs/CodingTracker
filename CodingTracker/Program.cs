@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Configuration;
-
+using Dapper;
+using System.Data;
 namespace CodingTracker;
 
 internal class Program
@@ -9,13 +10,11 @@ internal class Program
     {
         string connectionString = ConfigurationManager.AppSettings.Get("connectionString");
 
-        using (var connection = new SqliteConnection(connectionString))
+        using (IDbConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
-             
             
-
-
+            
 
             connection.Close();
 
