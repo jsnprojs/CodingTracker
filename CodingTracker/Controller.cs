@@ -13,7 +13,7 @@ internal class Controller
     static string connectionString = ConfigurationManager.AppSettings.Get("connectionString");
     static string tableString = ConfigurationManager.AppSettings.Get("connectionString");
 
-    static internal void Insert()
+    internal static void Insert()
     {
         Console.Clear();
         ShowTable();
@@ -44,7 +44,7 @@ internal class Controller
         }
     }
 
-    static internal void ShowTable()
+    internal static void ShowTable()
     {
         Console.Clear();
 
@@ -82,7 +82,7 @@ internal class Controller
         }
     }
 
-    static internal void Delete()
+    internal static void Delete()
     {
         Console.Clear();
         ShowTable();
@@ -104,7 +104,7 @@ internal class Controller
         }
     }
 
-    static internal void Update()
+    internal static void Update()
     {
         Console.Clear();
         ShowTable();
@@ -143,6 +143,48 @@ internal class Controller
         }
         Console.WriteLine("Updated, press to go back to main menu");
         Console.ReadLine();
+
+    }
+
+    internal static void Timer()
+    {
+        AnsiConsole.Clear();
+        AnsiConsole.WriteLine("Press to start/end timer");
+        Console.Read();
+        int seconds = 0;
+        while (true)
+        {
+            if (Console.KeyAvailable)
+            {
+                Console.ReadKey(true); // Read the key to clear it from the buffer
+                break;
+            }
+
+            AnsiConsole.Progress()
+                .HideCompleted(true)
+                .StartAsync(async ctx =>
+                {
+                    // Define tasks
+                    var task1 = ctx.AddTask($"[green]Timer started... {seconds++}[/]");
+                    AnsiConsole.WriteLine("Press to start timer");
+
+                    while (!ctx.IsFinished)
+                    {
+                        task1.Increment(1.0);
+                        await Task.Delay(10); // Control the speed of the progress bar
+                    }
+                }).GetAwaiter().GetResult();
+            
+            // Clear the console to refresh the progress bar in the same line
+            AnsiConsole.Clear();          
+        }
+
+        AnsiConsole.MarkupLine($"You've been coding for [green]{seconds}[/] seconds!");
+        Console.WriteLine("Press to go back to menu");
+        Console.ReadLine();
+        Console.ReadLine();
+
+
 
     }
 }

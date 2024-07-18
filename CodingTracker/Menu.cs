@@ -5,8 +5,8 @@ namespace CodingTracker;
 
 internal class Menu
 {
-    
-    static internal void GetUserInput()
+
+    internal static void GetUserInput()
     {
         Console.Clear();
         bool closeApp = false;
@@ -37,6 +37,9 @@ internal class Menu
                 case "4":
                     Controller.Update();
                     break;
+                case "5":
+                    Controller.Timer();
+                    break;
                 default:
                     AnsiConsole.MarkupLine("\nInvalid Command. Please type a number from 0 to 4.\n");
                     break;
@@ -46,9 +49,7 @@ internal class Menu
 
     static void DisplayMenu()
     {
-        AnsiConsole.Clear();
-
-        
+        AnsiConsole.Clear();       
         AnsiConsole.MarkupLine("\n\n[blue]MAIN MENU[/]");
         AnsiConsole.MarkupLine("\n[blue]What would you like to do?[/]");
         AnsiConsole.MarkupLine("\n[blue]Type 0 to Close Application.[/]");
@@ -56,6 +57,7 @@ internal class Menu
         AnsiConsole.MarkupLine("[blue]Type 2 to Insert Record.[/]");
         AnsiConsole.MarkupLine("[blue]Type 3 to Delete Record.[/]");
         AnsiConsole.MarkupLine("[blue]Type 4 to Update Record.[/]");
+        AnsiConsole.MarkupLine("[blue]Type 5 to Use a Timer.[/]");
         AnsiConsole.MarkupLine("------------------------------------------\n");
     }
 
