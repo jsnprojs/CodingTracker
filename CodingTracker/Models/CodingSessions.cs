@@ -8,7 +8,7 @@ namespace CodingTracker.Models;
 internal class CodingSessions
 {
     internal int ID { get; set; }
-    internal DateTime StartTime { get; set; }
-    internal DateTime EndTime { get; set; }
-    internal int Duration { get; set; }
+    internal String StartTime { get; set; }
+    internal String EndTime { get; set; }
+    internal double Duration { get; set; }
 }

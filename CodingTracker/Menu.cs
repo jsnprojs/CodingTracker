@@ -1,9 +1,11 @@
-﻿namespace CodingTracker;
+﻿using CodingTracker.Models;
+
+namespace CodingTracker;
 
 internal class Menu
 {
     
-    void GetUserInput()
+    static internal void GetUserInput()
     {
         Console.Clear();
         bool closeApp = false;
@@ -23,6 +25,7 @@ internal class Menu
                 case "1":
                     break;
                 case "2":
+                    Controller.Insert();
                     break;
                 case "3":
                     break;
@@ -35,7 +38,7 @@ internal class Menu
         }
     }
 
-    void DisplayMenu()
+    static void DisplayMenu()
     {
         Console.WriteLine("\n\nMAIN MENU");
         Console.WriteLine("\nWhat would you like to do?");
