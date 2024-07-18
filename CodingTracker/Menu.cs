@@ -23,6 +23,7 @@ internal class Menu
                     Environment.Exit(0);
                     break;
                 case "1":
+                    Controller.ShowTable();
                     break;
                 case "2":
                     Controller.Insert();
