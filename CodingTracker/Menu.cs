@@ -29,6 +29,7 @@ internal class Menu
                     Controller.Insert();
                     break;
                 case "3":
+                    Controller.Delete();
                     break;
                 case "4":
                     break;
@@ -41,6 +42,7 @@ internal class Menu
 
     static void DisplayMenu()
     {
+        Console.Clear();
         Console.WriteLine("\n\nMAIN MENU");
         Console.WriteLine("\nWhat would you like to do?");
         Console.WriteLine("\nType 0 to Close Application.");

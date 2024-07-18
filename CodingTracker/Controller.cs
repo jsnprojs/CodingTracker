@@ -14,6 +14,9 @@ internal class Controller
 
     static internal void Insert()
     {
+        Console.Clear();
+        ShowTable();
+
         string startDate = UserInput.GetDateInput("StartDate");
         string endDate = UserInput.GetDateInput("EndDate");
         
@@ -42,6 +45,8 @@ internal class Controller
 
     static internal void ShowTable()
     {
+        Console.Clear();
+
         string? sql;
 
         using (IDbConnection connection = new SqliteConnection(connectionString))
@@ -54,9 +59,33 @@ internal class Controller
                 Console.WriteLine($"StartDate:{row.StartTime}");
                 Console.WriteLine($"EndDate:{row.EndTime}");
                 Console.WriteLine($"Duration:{row.Duration}");
-
+                Console.WriteLine();
             }
             
+            connection.Close();
+        }
+        Console.WriteLine("press anything to go back to main menu");
+        Console.ReadLine();
+    }
+
+    static internal void Delete()
+    {
+        Console.Clear();
+        ShowTable();
+
+        string? sql;
+        int id = UserInput.GetNumberInput("Enter the id to delete that row");
+
+        using (IDbConnection connection = new SqliteConnection(connectionString))
+        {
+            sql = $"DELETE FROM CodingSessions WHERE ID='{id}'";
+
+            if (0 == connection.Execute(sql))
+            {
+                Console.WriteLine("the id does not exist in this table, please try again");
+                Delete();
+            }
+
             connection.Close();
         }
     }
