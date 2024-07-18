@@ -24,6 +24,8 @@ internal class Menu
                     break;
                 case "1":
                     Controller.ShowTable();
+                    Console.WriteLine("Press anything to go back to main menu");
+                    Console.ReadLine();
                     break;
                 case "2":
                     Controller.Insert();
@@ -32,6 +34,7 @@ internal class Menu
                     Controller.Delete();
                     break;
                 case "4":
+                    Controller.Update();
                     break;
                 default:
                     Console.WriteLine("\nInvalid Command. Please type a number from 0 to 4.\n");

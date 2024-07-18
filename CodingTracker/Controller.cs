@@ -64,8 +64,6 @@ internal class Controller
             
             connection.Close();
         }
-        Console.WriteLine("press anything to go back to main menu");
-        Console.ReadLine();
     }
 
     static internal void Delete()
@@ -88,5 +86,47 @@ internal class Controller
 
             connection.Close();
         }
+    }
+
+    static internal void Update()
+    {
+        Console.Clear();
+        ShowTable();
+
+        int id = UserInput.GetNumberInput("Enter the id to update that row");
+
+        using (IDbConnection connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+
+            string startDate = UserInput.GetDateInput("StartDate");
+            string endDate   = UserInput.GetDateInput("EndDate");
+
+            DateTime start;
+            DateTime.TryParseExact(startDate, "HH-dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out start);
+            DateTime end;
+            DateTime.TryParseExact(endDate, "HH-dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out end);
+
+            if (end < start)
+            {
+                Console.WriteLine("End date must be later than the startDate, please enter again.");
+                endDate = UserInput.GetDateInput("EndDate");
+            }
+
+            double duration = (end - start).TotalHours;
+
+            var sql = $"UPDATE CodingSessions SET StartTime = '{startDate}', EndTime = '{endDate}', Duration = {duration} WHERE Id = {id}";
+
+            if (connection.Execute(sql) == 0)
+            {
+                Console.WriteLine("Row does not exist, try again");
+                Update();
+            }
+
+            connection.Close();
+        }
+        Console.WriteLine("Updated, press to go back to main menu");
+        Console.ReadLine();
+
     }
 }
