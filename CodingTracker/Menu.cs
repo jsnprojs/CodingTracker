@@ -1,4 +1,5 @@
 ﻿using CodingTracker.Models;
+using Spectre.Console;
 
 namespace CodingTracker;
 
@@ -18,13 +19,13 @@ internal class Menu
             switch (command)
             {
                 case "0":
-                    Console.WriteLine("\nGoodbye!\n");
+                    AnsiConsole.MarkupLine("[green]GoodBye![/]");
                     closeApp = true;
                     Environment.Exit(0);
                     break;
                 case "1":
                     Controller.ShowTable();
-                    Console.WriteLine("Press anything to go back to main menu");
+                    AnsiConsole.MarkupLine("Press anything to go back to main menu");
                     Console.ReadLine();
                     break;
                 case "2":
@@ -37,7 +38,7 @@ internal class Menu
                     Controller.Update();
                     break;
                 default:
-                    Console.WriteLine("\nInvalid Command. Please type a number from 0 to 4.\n");
+                    AnsiConsole.MarkupLine("\nInvalid Command. Please type a number from 0 to 4.\n");
                     break;
             }
         }
@@ -45,15 +46,17 @@ internal class Menu
 
     static void DisplayMenu()
     {
-        Console.Clear();
-        Console.WriteLine("\n\nMAIN MENU");
-        Console.WriteLine("\nWhat would you like to do?");
-        Console.WriteLine("\nType 0 to Close Application.");
-        Console.WriteLine("Type 1 to View All Records.");
-        Console.WriteLine("Type 2 to Insert Record.");
-        Console.WriteLine("Type 3 to Delete Record.");
-        Console.WriteLine("Type 4 to Update Record.");
-        Console.WriteLine("------------------------------------------\n");
+        AnsiConsole.Clear();
+
+        
+        AnsiConsole.MarkupLine("\n\n[blue]MAIN MENU[/]");
+        AnsiConsole.MarkupLine("\n[blue]What would you like to do?[/]");
+        AnsiConsole.MarkupLine("\n[blue]Type 0 to Close Application.[/]");
+        AnsiConsole.MarkupLine("[blue]Type 1 to View All Records.[/]");
+        AnsiConsole.MarkupLine("[blue]Type 2 to Insert Record.[/]");
+        AnsiConsole.MarkupLine("[blue]Type 3 to Delete Record.[/]");
+        AnsiConsole.MarkupLine("[blue]Type 4 to Update Record.[/]");
+        AnsiConsole.MarkupLine("------------------------------------------\n");
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using CodingTracker.Models;
 using Dapper;
 using Microsoft.Data.Sqlite;
+using Spectre.Console;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
@@ -52,15 +53,30 @@ internal class Controller
         using (IDbConnection connection = new SqliteConnection(connectionString))
         {
             sql = $"SELECT * FROM CodingSessions";
-            var table = connection.Query<CodingSessions>(sql);
+            var tables = connection.Query<CodingSessions>(sql);
 
-            foreach (var row in table) {
-                Console.WriteLine($"ID:{row.ID}");
-                Console.WriteLine($"StartDate:{row.StartTime}");
-                Console.WriteLine($"EndDate:{row.EndTime}");
-                Console.WriteLine($"Duration:{row.Duration}");
-                Console.WriteLine();
+
+            var table = new Table();
+            table.Border = TableBorder.MinimalDoubleHead;
+            table.BorderColor<Table>(Color.Yellow);
+
+            table.AddColumn("[green]ID[/]");
+            table.AddColumn("[green]StartDate[/]");
+            table.AddColumn("[green]EndDate[/]");
+            table.AddColumn("[green]Duration[/]");
+
+            DateTime start;
+            DateTime end;
+
+            foreach (var row in tables)
+            {
+                // Add some rows
+                DateTime.TryParseExact(row.StartTime, "HH-dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out start);
+                DateTime.TryParseExact(row.EndTime, "HH-dd-MM-yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out end);
+                table.AddRow($"{row.ID}", $"{start.Hour} O'Clock on {start.Date}/{start.Month}/{start.Year}", $"{end.Hour} O' Clock on {end.Date}/{end.Month}/{end.Year}", $"{row.Duration} hours");
             }
+            // Render the table to the console
+            AnsiConsole.Write(table);
             
             connection.Close();
         }

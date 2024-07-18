@@ -3,8 +3,8 @@ using System.Configuration;
 using Dapper;
 using System.Data;
 using CodingTracker.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
+using Spectre.Console;
 namespace CodingTracker;
 
 internal class Program
@@ -29,7 +29,7 @@ internal class Program
 
             connection.Close();           
         }
-     
+
 
         Menu.GetUserInput();
     }
